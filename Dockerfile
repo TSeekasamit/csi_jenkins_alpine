@@ -1,20 +1,24 @@
 FROM openjdk:8-jdk-alpine
 
+#ENV http_proxy http://webproxy.int.westgroup.com:80
+#ENV https_proxy http://webproxy.int.westgroup.com:80
+
 RUN apk add --no-cache git openssh-client curl unzip bash ttf-dejavu coreutils
 
 ENV JENKINS_HOME /var/jenkins_home
 ENV JENKINS_SLAVE_AGENT_PORT 50000
 
-ARG user=jenkins
-ARG group=jenkins
-ARG uid=1000
-ARG gid=1000
+ARG user=gscadmin
+ARG group=gscadmin
+ARG uid=69192
+ARG gid=69192
 
 # Jenkins is run with user `jenkins`, uid = 1000
 # If you bind mount a volume from the host or a data container, 
 # ensure you use the same uid
 RUN addgroup -g ${gid} ${group} \
     && adduser -h "$JENKINS_HOME" -u ${uid} -G ${group} -s /bin/bash -D ${user}
+#	&& useradd -d "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
 
 # Jenkins home directory is a volume, so configuration and build history 
 # can be persisted and survive image upgrades
