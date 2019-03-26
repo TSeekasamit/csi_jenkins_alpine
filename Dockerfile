@@ -1,7 +1,6 @@
 FROM openjdk:8-jdk-alpine
 
-#ENV http_proxy http://webproxy.int.westgroup.com:80
-#ENV https_proxy http://webproxy.int.westgroup.com:80
+
 
 RUN apk add --no-cache git openssh-client curl unzip bash ttf-dejavu coreutils
 
